@@ -1,0 +1,112 @@
+# Sample specification file for reviewscans.bash
+# David Perlman, 2012 Jan 12
+
+
+TITLE Pine Timepoint C & D MNI Space Aligned Brains
+# This is the title that will appear at the top of the resulting web page
+# Giving this more than once probably won't make it crash, but it won't do any good
+## DATADIR /Volumes/opt/mriAnalyses/MDD/data
+DATADIR /Volumes/PROMISEPEGASUS/yangdata/cPine/data
+# This is the directory that the subject folders are in.
+SUBDIR functional
+# This contains any path that should be followed under the subject folder to find the data.
+# The file will be at $DATADIR/$subj/$SUBDIR/$filename
+## OUTDIR /Volumes/opt/mriAnalyses/MDD/data/structural_review_html
+OUTDIR /Volumes/PROMISEPEGASUS/yangdata/cPine/data/pine_timepoint_CAndD_mni_space_review_html
+# This is where the outputs go.  This directory will be created.
+# If it exists already, we'll give it a number.
+# If you give this more than once, or not at the beginning, this whole thing won't work.
+#UNDERLAY ${SUBJ}_1_T1High+tlrc
+# This is the name of the underlay file to use for rendering the image.
+# For afni format files, leave off the +orig or +tlrc.
+# For .nii files, give the full filename.
+COLORSCALE Spectrum:red_to_blue
+# This is the name of the colorscale to use, as the names appear in the afni viewer.
+OPACITY 7
+# This is the opacity of the functional map on top of the anatomical underlay.
+# Can be 0-9.  Default is 9, full opacity.  You don't need to give this if you want to use the default.
+THRESHTYPE raw
+# This tells you whether the threshold is given as a "raw" value in the chosen brik,
+# or as a calculated "p"-value, which requires the brik to have proper statistical parameters associated with it
+RANGE 0
+# The colorscale will run over the colorscale_subbrik values in the range -RANGE to +RANGE.
+# If this is not given, or set to zero, then range is calculated automatically for each individual image.
+# You might not want that if you want to be able to compare images with each other.
+# Don't give this keyword with a blank value, that will screw things up.
+VIEW orig
+# This tells you whether to set the afni viewer to "orig" or "tlrc" view.
+# If your images came from afni processing, you'll get better results with tlrc,
+# because they will be visually comparable across subjects.
+# If all the images come from the same scan session then it doesn't matter.
+# If your input images were all registered to atlas space already, in some other program,
+# then use orig for good results.
+#
+# Each one of these specifies the image for one column of the output.
+# Here we set it up for five columns in the output table.
+# The format is filename colorscale_subbrik thresh_subbrik slice_direction threshold xcoord ycoord zcoord
+#VIEW tlrc
+UNDERLAY    ${SUBJ}.anat_struc_brain.std.2.MNI.nonlinear+tlrc.HEAD
+##OVERLAY      NO_OVERLAY
+OVERLAY      ${SUBJ}.pine.preprocessed.MNI+tlrc.HEAD
+#OVERLAY     ${SUBJ}.riskygains.func.native.std.MNI.nii.gz
+#OVERLAY     ${SUBJ}.riskygains.scale.std.MNI.nii.gz
+
+RENDERIMAGE Pine_Vol0 0 0 axialimage 0 0.5 9.5 -22.5
+RENDERIMAGE Pine_Vol0 0 0 axialimage 0 0.5 9.5 2.5
+RENDERIMAGE Pine_Vol0 0 0 axialimage 0 0.5 9.5 24.5
+
+RENDERIMAGE Pine_Vol0 0 0 sagittalimage 0 -24.5 9.5 2.5
+RENDERIMAGE Pine_Vol0 0 0 sagittalimage 0 0.5 9.5 2.5
+RENDERIMAGE Pine_Vol0 0 0 sagittalimage 0 24.5 9.5 2.5
+
+RENDERIMAGE Pine_Vol0 0 0 coronalimage 0 0.5 -15.5 2.5
+RENDERIMAGE Pine_Vol0 0 0 coronalimage 0 0.5 9.5 2.5
+RENDERIMAGE Pine_Vol0 0 0 coronalimage 0 0.5 34.5 2.5
+
+# Here begins the list of subject directories
+
+111_C
+112_C
+114_C
+137_D
+144_C
+147_C
+158_C
+158_D
+160_C
+161_C
+161_D
+300_C
+300_D
+304_C
+304_D
+313_C
+313_D
+316_C
+316_D
+317_C
+317_D
+320_C
+320_D
+321_D
+322_C
+322_D
+323_C
+323_D
+330_C
+330_D
+331_D
+336_C
+337_C
+339_C
+339_D
+341_C
+348_C
+349_D
+357_C
+366_C
+367_C
+
+### Local Variables:
+### mode: sh
+### End:
